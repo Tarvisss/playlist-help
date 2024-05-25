@@ -49,9 +49,10 @@ def show_all_playlists():
 @app.route("/playlists/<int:playlist_id>")
 def show_playlist(playlist_id):
     """Show detail on specific playlist."""
-
+    songs = Song.query.all()
+    
     playlist = Playlist.query.get_or_404(playlist_id)
-    return render_template("playlist.html", playlist=playlist)
+    return render_template("playlist.html", playlist=playlist, songs=songs)
 
 
 @app.route("/playlists/add", methods=["GET", "POST"])
@@ -125,20 +126,22 @@ def add_song():
 @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
 def add_song_to_playlist(playlist_id):
     """Add a playlist and redirect to list."""
-
+   # I spent a lot of time trying to get this implemented,but could not get the given code to run so i started making ajustments and ran out of time
+   #please explain 
     # BONUS - ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
     # THE SOLUTION TO THIS IS IN A HINT IN THE ASSESSMENT INSTRUCTIONS
-
+    songs = Song.query.all()
     playlist = Playlist.query.get_or_404(playlist_id)
     form = NewSongForPlaylistForm()
 
     # Restrict form to songs not already on this playlist
-
-    curr_on_playlist = [songs.id for songs in Playlist.songs]
+    current_on_playlist = db.session.query(PlaylistSong).filter(PlaylistSong.playlist_id == playlist_id).all()
+    # curr_on_playlist = [songs.id for songs in Playlist.songs]
     form.song.choices = (db.session.query(Song.id, Song.title)
-                         .filter(Song.id.notin_(curr_on_playlist))
+                         .filter(Song.id.notin_(current_on_playlist))
                          .all())
+    # form.song.choices = [song.id for song in songs]
 
     if form.validate_on_submit():
 

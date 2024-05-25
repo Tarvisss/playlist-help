@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Add a new playlist!</h1>
-<form id="new-song-form" method="post">
+<form method="post">
   {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
   

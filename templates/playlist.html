@@ -11,10 +11,12 @@
 
 
 <div class="text-danger">
+  <!-- Could not add this functionallity please explain. -->
   SHOW ALL OF THE SONGS IN THIS PLAYLIST HERE
   <ul>
-    {% for song in playlist.songs %}
+    {% for song in songs %}
       <li>
+
          <a href="/songs/{{ song.id }}">{{ song.title }}</a>
       </li>
     {% endfor %}
