@@ -13,7 +13,7 @@ class PlaylistForm(FlaskForm):
         "Name of new playlist",
         validators=[InputRequired(), Length(min=1, max=85)])
 
-    discription = StringField(
+    description = StringField(
         "enter discription",
         validators=[InputRequired(), Length(min=1, max=85)])
 
